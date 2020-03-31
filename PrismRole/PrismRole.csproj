@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ModuleA\ModuleA.csproj" />
+    <ProjectReference Include="..\ModuleU\ModuleU.csproj" />
+    <ProjectReference Include="..\PrismRole.Core\PrismRole.Core.csproj" />
   </ItemGroup>
 
 </Project>

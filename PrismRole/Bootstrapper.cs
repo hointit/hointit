@@ -5,6 +5,9 @@ using System.Windows;
 using Unity.Lifetime;
 using PrismRole.Views;
 using ModuleA;
+using ModuleU;
+using System.Security.Principal;
+using System.Threading;
 
 namespace PrismRole
 {
@@ -18,6 +21,9 @@ namespace PrismRole
 
         protected override void InitializeShell()
         {
+            var ident = WindowsIdentity.GetCurrent();
+            var p = new GenericPrincipal(ident, new string[] {"Admin" });
+            Thread.CurrentPrincipal = p;
             Application.Current.MainWindow.Show();
         }
 
@@ -25,10 +31,8 @@ namespace PrismRole
         {
             base.ConfigureContainer();
             ModuleCatalog.AddModule<ModuleAModule>();
-
-            //Container.RegisterType<IModuleInitializer, Core.RoleBasedModuleInitializer>(
-            //    new ContainerControlledLifetimeManager());
-
+            ModuleCatalog.AddModule<ModuleUModule>();
+            Container.RegisterType<IModuleInitializer, Core.RoleBasedModuleInitializer>(new ContainerControlledLifetimeManager());
         }
     }
 }
